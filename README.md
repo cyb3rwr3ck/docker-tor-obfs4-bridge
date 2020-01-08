@@ -13,5 +13,5 @@ Remix of https://dip.torproject.org/torproject/anti-censorship/docker-obfs4-brid
 * Use ```docker exec CONTAINER_ID get-bridge-line``` to display your bridge line. It can be directly consumed by tor clients to contact your bridge.
 * Get some logs: ```docker logs CONTAINER_ID```
 
-*Aftermath*
+*Aftermath*:
 Check out https://community.torproject.org/relay/setup/bridge/post-install/
