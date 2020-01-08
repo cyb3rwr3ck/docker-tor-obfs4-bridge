@@ -1,0 +1,42 @@
+# Base docker image
+FROM debian:stable
+
+LABEL maintainer="cyb3rwr3ck mgmt@cyb3rwr3ck.net"
+
+# Install dependencies to add Tor's repository.
+RUN apt-get update && apt-get install -y \
+    curl \
+    gpg \
+    gpg-agent \
+    ca-certificates \
+    --no-install-recommends
+
+# See: <https://2019.www.torproject.org/docs/debian.html.en>
+RUN curl https://deb.torproject.org/torproject.org/A3C4F0F979CAA22CDBA8F512EE8CBC9E886DDD89.asc | gpg --import \
+    && gpg --export A3C4F0F979CAA22CDBA8F512EE8CBC9E886DDD89 | apt-key add -
+
+RUN printf "deb https://deb.torproject.org/torproject.org stable main\n" >> /etc/apt/sources.list.d/tor
+
+# Install remaining dependencies.
+RUN apt-get update && apt-get install -y \
+    tor \
+    tor-geoipdb \
+    obfs4proxy \
+    --no-install-recommends
+
+# Allow obfs4proxy to bind to ports < 1024.
+RUN setcap cap_net_bind_service=+ep /usr/bin/obfs4proxy
+
+# Our torrc is generated at run-time by the script start-tor.sh.
+RUN rm /etc/tor/torrc && chown debian-tor:debian-tor /etc/tor && chown debian-tor:debian-tor /var/log/tor
+
+# Copy Scripts to container
+COPY /scripts/start-tor.sh /usr/local/bin
+RUN chmod 0755 /usr/local/bin/start-tor.sh
+COPY /scripts/get-bridge-line /usr/local/bin
+RUN chmod 0755 /usr/local/bin/get-bridge-line
+
+USER debian-tor
+
+# Start the thingy
+CMD [ "/usr/local/bin/start-tor.sh" ]
