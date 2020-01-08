@@ -3,10 +3,11 @@ Remix of https://dip.torproject.org/torproject/anti-censorship/docker-obfs4-brid
 
 *Basics*:
 * clone repo
-* edit _tor-bridge.conf_ (which is linked to the _.env_ file environment import)
+* edit _tor-bridge.conf_ (which is linked to the _.env_ file for environment import)
   * OR and PT TCP-Ports need to be reachable from the outside world
   * Nickname is optional
   * Mail is highly recommended to give the project an option to reach out
+* add symlink for docker-compose environment import: ```ln -s tor-bridge.conf .env```
 * build it using docker-compose build --pull -> run it using docker-compose up -d
 
 *Other Stuff*:
