@@ -1,4 +1,4 @@
-# wireguard-docker
+# docker-tor-obfs4-bridge
 Remix of https://dip.torproject.org/torproject/anti-censorship/docker-obfs4-bridge including some refactoring and docker-compose support.
 
 *Basics*:
