@@ -1,0 +1,16 @@
+version: "2"
+services:
+ tor-bridge:
+  container_name: tor-bridge-app
+  build: ./app
+  networks:
+   - default
+  ports:
+   - ${OR_PORT}:${OR_PORT}/tcp
+   - ${PT_PORT}:${PT_PORT}/tcp
+  environment:
+   - OR_PORT=${OR_PORT}
+   - PT_PORT=${PT_PORT}
+   - EMAIL=${EMAIL}
+   - NICK=${NICK}
+  restart: always
