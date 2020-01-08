@@ -14,4 +14,4 @@ Remix of https://dip.torproject.org/torproject/anti-censorship/docker-obfs4-brid
 * Get some logs: ```docker logs CONTAINER_ID```
 
 *Aftermath*:
-Check out https://community.torproject.org/relay/setup/bridge/post-install/
+* Check out https://community.torproject.org/relay/setup/bridge/post-install/
